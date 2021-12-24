@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 
 //Routes imports
 const indexRouter = require("./routes/index-router.js");
+const userRouter = require("./routes/user-router.js");
 
 //Env variables
 dotenv.config();
@@ -21,6 +22,9 @@ app.listen(PORT, HOST, () => {
 
 //Index
 app.use("/", indexRouter);
+
+//Users
+app.use("/users", userRouter);
 
 //Catch 404
 app.use((req, res, next) => {
