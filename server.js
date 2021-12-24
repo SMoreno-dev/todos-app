@@ -1,10 +1,10 @@
 //Dependencies
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
 
 //Routes imports
-import indexRouter from "./routes/index-router.js";
+const indexRouter = require("./routes/index-router.js");
 
 //Env variables
 dotenv.config();
@@ -38,3 +38,5 @@ app.use((err, req, res, next) => {
     message: err.message,
   });
 });
+
+module.exports = app;
