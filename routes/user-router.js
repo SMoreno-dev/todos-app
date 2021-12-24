@@ -3,5 +3,6 @@ const userController = require("../controllers/user-controller");
 const router = express.Router();
 
 router.post("/", userController.create);
+router.patch("/:id", userController.update);
 
 module.exports = router;
