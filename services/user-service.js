@@ -22,7 +22,7 @@ module.exports = {
     }
 
     //TODO: Encrypt password and generate token
-    return createdUser;
+    return buildUserObject(createdUser);
   },
 
   updateUser: async (req, res) => {
@@ -45,6 +45,6 @@ module.exports = {
     }
 
     //Todo: add encryption in case of password
-    return updatedUser;
+    return buildUserObject(updatedUser);
   },
 };

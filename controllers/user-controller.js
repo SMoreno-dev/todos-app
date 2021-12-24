@@ -1,6 +1,5 @@
 const catchAsync = require("../utils/catchAsync");
 const userService = require("../services/user-service");
-const buildUserObject = require("../utils/buildUserObject");
 const encryptPassword = require("../utils/encryptPassword");
 
 module.exports = {
@@ -11,7 +10,7 @@ module.exports = {
     const createdUser = await userService.createUser(req, res);
     res.status(201).json({
       message: "Successfully created new user",
-      body: buildUserObject(createdUser),
+      body: createdUser,
     });
   }),
 
@@ -19,7 +18,7 @@ module.exports = {
     const updatedUser = await userService.updateUser(req, res);
     res.status(200).json({
       message: "Successfully updated user",
-      body: buildUserObject(updatedUser),
+      body: updatedUser,
     });
   }),
 };
