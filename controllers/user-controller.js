@@ -1,9 +1,13 @@
 const catchAsync = require("../utils/catchAsync");
-const userService = require("../services/user-service.js");
+const userService = require("../services/user-service");
 const buildUserObject = require("../utils/buildUserObject");
+const encryptPassword = require("../utils/encryptPassword");
 
 module.exports = {
   create: catchAsync(async (req, res, next) => {
+    const hashedPassword = await encryptPassword(req.body.password);
+    req.body.password = hashedPassword;
+
     const createdUser = await userService.createUser(req, res);
     res.status(201).json({
       message: "Successfully created new user",
