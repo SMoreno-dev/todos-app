@@ -1,6 +1,7 @@
 module.exports = (object) => {
-  const { email, createdAt, updatedAt } = object;
+  const { id, email, createdAt, updatedAt } = object;
   return {
+    id,
     email,
     createdAt,
     updatedAt,
