@@ -5,10 +5,11 @@ const {
   validateUpdateTodo,
   validateCreateTodo,
 } = require("../middleware/todo-middleware");
+const authentication = require("../middleware/authentication");
 
-router.post("/", validateCreateTodo, todoController.create);
+router.post("/", authentication, validateCreateTodo, todoController.create);
 router.get("/", todoController.list);
-router.patch("/:id", validateUpdateTodo, todoController.update);
-router.delete("/:id", todoController.delete);
+router.patch("/:id", authentication, validateUpdateTodo, todoController.update);
+router.delete("/:id", authentication, todoController.delete);
 
 module.exports = router;
