@@ -1,7 +1,7 @@
 const catchAsync = require("../utils/catchAsync");
 const todoService = require("../services/todo-service");
 const code = require("../constants/http-status");
-const message = require("../constants/todos-constants");
+const message = require("../constants/todo-constants");
 
 module.exports = {
   create: catchAsync(async (req, res, next) => {

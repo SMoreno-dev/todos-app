@@ -1,5 +1,8 @@
 const { Todo, sequelize } = require("../models");
 const repository = require("../repositories/base-repository");
+const throwError = require("../utils/throw-error");
+const code = require("../constants/http-status");
+const message = require("../constants/todo-constants");
 
 module.exports = {
   createTodo: async (req, res) => {
@@ -18,20 +21,14 @@ module.exports = {
 
       //Reponses
       if (createdTodo === false) {
-        const errorToThrow = new Error();
-        errorToThrow.status = 403;
-        errorToThrow.message = "A TODO with this title already exists";
-        throw errorToThrow;
+        return throwError(code.FORBIDDEN, message.TODO_EXISTS);
       }
 
       if (createdTodo) {
         return createdTodo;
       }
 
-      const errorToThrow = new Error();
-      errorToThrow.status = 500;
-      console.log("Something went wrong creating a TODO in todo-service.js");
-      throw errorToThrow;
+      return throwError(code.INTERNAL_SERVER_ERROR, message.TODO_NOT_CREATED);
     });
   },
 
@@ -55,10 +52,7 @@ module.exports = {
 
       //Not found
       if (updateTodo === false) {
-        const errorToThrow = new Error();
-        errorToThrow.status = 404;
-        errorToThrow.message = "TODO not found";
-        throw errorToThrow;
+        return throwError(code.NOT_FOUND, message.TODO_NOT_FOUND);
       }
 
       return updateTodo;
@@ -66,11 +60,7 @@ module.exports = {
 
     //Internal error
     if (updatedTodo !== 1) {
-      const errorToThrow = new Error();
-      errorToThrow.status = 500;
-      errorToThrow.message = "Internal Server error";
-      console.log("Something went wrong updating a todo in todo-service.js");
-      throw errorToThrow;
+      return throwError(code.INTERNAL_SERVER_ERROR, message.TODO_NOT_UPDATED);
     }
 
     //Success
@@ -91,21 +81,14 @@ module.exports = {
 
       //Not found
       if (deleteTodo === false) {
-        const errorToThrow = new Error();
-        errorToThrow.status = 404;
-        errorToThrow.message = "TODO not found";
-        throw errorToThrow;
+        return throwError(code.NOT_FOUND, message.TODO_NOT_FOUND);
       }
       return deleteTodo;
     });
 
     //Internal error
     if (deletedTodo !== 1) {
-      const errorToThrow = new Error();
-      errorToThrow.status = 500;
-      errorToThrow.message = "Internal Server error";
-      console.log("Something went wrong deleting a todo in todo-service.js");
-      throw errorToThrow;
+      return throwError(code.INTERNAL_SERVER_ERROR, message.TODO_NOT_DELETED);
     }
   },
 };

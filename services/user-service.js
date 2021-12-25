@@ -3,6 +3,8 @@ const repository = require("../repositories/base-repository.js");
 const { encryptPassword } = require("../utils/bcrypt");
 const { generateAccessToken } = require("../utils/jsonwebtoken");
 const buildUserObject = require("../utils/buildUserObject");
+const code = require("../constants/http-status");
+const message = require("../constants/user-constants");
 
 module.exports = {
   createUser: async (req, res) => {
@@ -19,10 +21,7 @@ module.exports = {
 
       //Responses
       if (createdUser === false) {
-        const errorToThrow = new Error();
-        errorToThrow.status = 403;
-        errorToThrow.message = "This user email already exists";
-        throw errorToThrow;
+        return throwError(code.FORBIDDEN, message.USER_EXISTS);
       }
 
       //Adds auth token to response
@@ -36,10 +35,7 @@ module.exports = {
       }
 
       const errorToThrow = new Error();
-      errorToThrow.status = 500;
-      errorToThrow.message = "Internal Server error";
-      console.log("Something went wrong in user-service.js");
-      throw errorToThrow;
+      return throwError(code.INTERNAL_SERVER_ERROR, message.USER_NOT_CREATED);
     });
   },
 
@@ -71,10 +67,7 @@ module.exports = {
 
       //Responses
       if (updateUser === false) {
-        const errorToThrow = new Error();
-        errorToThrow.status = 404;
-        errorToThrow.message = "User not found";
-        throw errorToThrow;
+        return throwError(code.NOT_FOUND, message.USER_NOT_FOUND);
       }
     });
 
