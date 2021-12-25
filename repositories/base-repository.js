@@ -4,6 +4,11 @@ module.exports = {
     return row;
   },
 
+  list: async (model) => {
+    const rows = await model.findAll({});
+    return rows;
+  },
+
   create: async (model, attributes, transaction) => {
     const [row, created] = await model.findOrCreate({
       where: attributes.toFind,
