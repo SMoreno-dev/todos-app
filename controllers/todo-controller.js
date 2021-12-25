@@ -19,7 +19,7 @@ module.exports = {
   }),
 
   update: catchAsync(async (req, res, next) => {
-    const updatedTodo = await todoService.updateTodo(req, res);
+    await todoService.updateTodo(req, res);
     res.status(200).json({
       message: "Successfully updated TODO",
       body: updatedTodo,
