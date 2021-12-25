@@ -6,7 +6,10 @@
   "type": "commonjs",
   "scripts": {
     "start": "cross-env NODE_ENV=production node server.js",
-    "dev": "cross-env NODE_ENV=development nodemon server.js"
+    "dev": "cross-env NODE_ENV=development nodemon server.js",
+    "testDB": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "test": "cross-env-shell NODE_ENV=test \"npm run testDB && mocha\"",
+    "mocha": "mocha"
   },
   "keywords": [],
   "author": "",
