@@ -1,6 +1,6 @@
 const { User, sequelize } = require("../models");
 const repository = require("../repositories/base-repository.js");
-const { encryptPassword, comparePassword } = require("../utils/bcrypt");
+const { encryptPassword } = require("../utils/bcrypt");
 const { generateAccessToken } = require("../utils/jsonwebtoken");
 const buildUserObject = require("../utils/buildUserObject");
 
@@ -44,7 +44,6 @@ module.exports = {
   },
 
   findUserByEmail: async (req, res) => {
-    req.body;
     const attributes = {
       toFind: { email: req.body.email },
     };
