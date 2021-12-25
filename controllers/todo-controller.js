@@ -1,4 +1,4 @@
-const catchAsync = require("../utils/catchAsync");
+const catchAsync = require("../utils/catch-async");
 const todoService = require("../services/todo-service");
 const code = require("../constants/http-status");
 const message = require("../constants/todo-constants");

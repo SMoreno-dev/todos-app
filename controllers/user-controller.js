@@ -1,7 +1,7 @@
-const catchAsync = require("../utils/catchAsync");
+const catchAsync = require("../utils/catch-async");
 const userService = require("../services/user-service");
 const { encryptPassword, comparePassword } = require("../utils/bcrypt");
-const buildUserObject = require("../utils/buildUserObject");
+const buildUserObject = require("../utils/build-user-object");
 const { generateAccessToken } = require("../utils/jsonwebtoken");
 const code = require("../constants/http-status");
 const message = require("../constants/user-constants");

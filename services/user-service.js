@@ -2,7 +2,7 @@ const { User, sequelize } = require("../models");
 const repository = require("../repositories/base-repository.js");
 const { encryptPassword } = require("../utils/bcrypt");
 const { generateAccessToken } = require("../utils/jsonwebtoken");
-const buildUserObject = require("../utils/buildUserObject");
+const buildUserObject = require("../utils/build-user-object");
 const code = require("../constants/http-status");
 const message = require("../constants/user-constants");
 
