@@ -32,7 +32,10 @@ module.exports = {
   },
 
   delete: async (model, attributes, transaction) => {
-    await model.destroy({
+    const findRow = await model.findOne({ where: attributes.toFind });
+    if (!findRow) return false;
+
+    const deleteRow = await model.destroy({
       where: attributes.toFind,
       transaction,
     });
