@@ -64,8 +64,7 @@ module.exports = {
     }
 
     //Success
-    const updatedTodo = await repository.find(Todo, attributes);
-    return updatedTodo;
+    return await repository.find(Todo, attributes);
   },
 
   deleteTodo: async (req, res) => {

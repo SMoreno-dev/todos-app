@@ -3,6 +3,14 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 
+//Error handler
+const {
+  productionErrorHandler,
+  defaultErrorHandler,
+  developmentErrorHandler,
+  testErrorHandler,
+} = require("./utils/error-handler");
+
 //Routes imports
 const indexRouter = require("./routes/index-router.js");
 const userRouter = require("./routes/user-router.js");
@@ -39,14 +47,26 @@ app.use((req, res, next) => {
   next(errorToThrow);
 });
 
-//Error handler
+// error handler
 app.use((err, req, res, next) => {
-  console.error(err);
-  const status = err.status || 500;
-  res.status(status).json({
-    status: status,
-    message: err.message,
-  });
-});
+  const { NODE_ENV } = process.env;
 
+  switch (NODE_ENV) {
+    case "development":
+      developmentErrorHandler(err, req, res);
+      break;
+
+    case "production":
+      productionErrorHandler(err, req, res);
+      break;
+
+    case "test":
+      testErrorHandler(err, req, res);
+      break;
+
+    default:
+      defaultErrorHandler(err, req, res);
+      break;
+  }
+});
 module.exports = app;
