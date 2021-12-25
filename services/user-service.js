@@ -55,14 +55,13 @@ module.exports = {
   updateUser: async (req, res) => {
     //Attributes for repository
     const { id } = req.params;
+    const { email, password } = req.body;
     const attributes = {
       toFind: { id },
-      toUpdate: req.body,
+      toUpdate: { email, password },
     };
 
-    const { password } = attributes.toUpdate;
-
-    if (password) {
+    if (attributes.toUpdate.password) {
       attributes.toUpdate.password = encryptPassword(req.password);
     }
 
