@@ -13,6 +13,7 @@ module.exports = {
         validate: {
           isEmail: true,
         },
+        unique: true,
       },
       password: {
         type: Sequelize.TEXT,

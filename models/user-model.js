@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           isEmail: true,
         },
-        isUnique: true,
+        unique: true,
       },
       password: {
         type: DataTypes.TEXT,
