@@ -28,7 +28,7 @@ module.exports = {
 
       const errorToThrow = new Error();
       errorToThrow.status = 500;
-      console.log("Something went wrong in user-service.js");
+      console.log("Something went wrong creating a TODO in todo-service.js");
       throw errorToThrow;
     });
   },
@@ -54,12 +54,40 @@ module.exports = {
       if (updateTodo === false) {
         const errorToThrow = new Error();
         errorToThrow.status = 404;
-        errorToThrow.message = "User not found";
+        errorToThrow.message = "TODO not found";
         throw errorToThrow;
       }
 
       const updatedTodo = await repository.find(Todo, attributes);
       return updatedTodo;
     });
+  },
+
+  deleteTodo: async (req, res) => {
+    //Attributes for repository
+    const { id } = req.params;
+    const attributes = {
+      toFind: { id },
+    };
+
+    //Repository
+    const deletedTodo = await sequelize.transaction(async (t) => {
+      const deletedTodo = await repository.delete(Todo, attributes);
+      if (deletedTodo === false) {
+        const errorToThrow = new Error();
+        errorToThrow.status = 404;
+        errorToThrow.message = "TODO not found";
+        throw errorToThrow;
+      }
+    });
+
+    if (deletedTodo === 1) {
+      return true;
+    }
+    const errorToThrow = new Error();
+    errorToThrow.status = 500;
+    errorToThrow.message = "Internal Server error";
+    console.log("Something went wrong deleting a todo in todo-service.js");
+    throw errorToThrow;
   },
 };
