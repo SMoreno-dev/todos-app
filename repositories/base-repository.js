@@ -1,30 +1,32 @@
-const { sequelize } = require("../models");
-
 module.exports = {
-  create: async (model, attributes) => {
-    const createdRow = await sequelize.transaction(async (t) => {
-      const [created, success] = await model.findOrCreate({
-        where: attributes.toFind,
-        defaults: attributes.toCreate,
-      });
-
-      return success ? created : false;
+  create: async (model, attributes, transaction) => {
+    const [row, created] = await model.findOrCreate({
+      where: attributes.toFind,
+      defaults: attributes.toCreate,
+      transaction,
     });
-    return createdRow;
+
+    return !created ? false : row;
   },
 
-  update: async (model, attributes) => {
+  update: async (model, attributes, transaction) => {
     const findRow = await model.findOne({ where: attributes.toFind });
     if (!findRow) return false;
 
-    const updatedRow = await sequelize.transaction(async (t) => {
-      await model.update(attributes.toUpdate, {
-        where: attributes.toFind,
-      });
-
-      return findRow;
+    await model.update(attributes.toUpdate, {
+      where: attributes.toFind,
+      transaction,
     });
 
-    return updatedRow;
+    return findRow;
+  },
+
+  delete: async (model, attributes, transaction) => {
+    await model.destroy({
+      where: attributes.toFind,
+      transaction,
+    });
+
+    return deleteRow;
   },
 };
