@@ -1,6 +1,7 @@
 module.exports = {
-  getById: async (model, attributes) => {
-    return await model.findOne({ where: attributes.toFind });
+  find: async (model, attributes) => {
+    const row = await model.findOne({ where: attributes.toFind });
+    return row;
   },
 
   create: async (model, attributes, transaction) => {

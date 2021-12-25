@@ -1,8 +1,8 @@
 const { User, sequelize } = require("../models");
 const repository = require("../repositories/base-repository.js");
-const buildUserObject = require("../utils/buildUserObject");
-const encryptPassword = require("../utils/encryptPassword");
+const { encryptPassword, comparePassword } = require("../utils/bcrypt");
 const { generateAccessToken } = require("../utils/jsonwebtoken");
+const buildUserObject = require("../utils/buildUserObject");
 
 module.exports = {
   createUser: async (req, res) => {
@@ -43,6 +43,16 @@ module.exports = {
     });
   },
 
+  findUserByEmail: async (req, res) => {
+    req.body;
+    const attributes = {
+      toFind: { email: req.body.email },
+    };
+
+    const user = await repository.find(User, attributes);
+    return user.dataValues;
+  },
+
   updateUser: async (req, res) => {
     //Attributes for repository
     const { id } = req.params;
@@ -70,7 +80,7 @@ module.exports = {
       }
     });
 
-    const updatedUser = await repository.getById(User, attributes);
+    const updatedUser = await repository.find(User, attributes);
     return buildUserObject(updatedUser);
   },
 };
