@@ -4,10 +4,12 @@ const repository = require("../repositories/base-repository");
 module.exports = {
   createTodo: async (req, res) => {
     //Attributes for repository
-    let { userId, title, content } = req.body;
+    let { title, content } = req.body;
+    let UserId = req.body.userId;
+
     const attributes = {
       toFind: { title },
-      toCreate: { userId, title, content },
+      toCreate: { UserId, title, content },
     };
 
     //Repository
@@ -41,16 +43,17 @@ module.exports = {
   updateTodo: async (req, res) => {
     //Attributes for repository
     const { id } = req.params;
+    const { title, content, completed } = req.body;
     const attributes = {
       toFind: { id },
-      toUpdate: req.body,
+      toUpdate: { title, content, completed },
     };
 
     //Repository
-    await sequelize.transaction(async (t) => {
+    const updatedTodo = await sequelize.transaction(async (t) => {
       const updateTodo = await repository.update(Todo, attributes, t);
 
-      //Responses
+      //Not found
       if (updateTodo === false) {
         const errorToThrow = new Error();
         errorToThrow.status = 404;
@@ -58,9 +61,21 @@ module.exports = {
         throw errorToThrow;
       }
 
-      const updatedTodo = await repository.find(Todo, attributes);
-      return updatedTodo;
+      return updateTodo;
     });
+
+    //Internal error
+    if (updatedTodo !== 1) {
+      const errorToThrow = new Error();
+      errorToThrow.status = 500;
+      errorToThrow.message = "Internal Server error";
+      console.log("Something went wrong updating a todo in todo-service.js");
+      throw errorToThrow;
+    }
+
+    //Success
+    const updatedTodo = await repository.find(Todo, attributes);
+    return updatedTodo;
   },
 
   deleteTodo: async (req, res) => {
@@ -72,22 +87,25 @@ module.exports = {
 
     //Repository
     const deletedTodo = await sequelize.transaction(async (t) => {
-      const deletedTodo = await repository.delete(Todo, attributes);
-      if (deletedTodo === false) {
+      const deleteTodo = await repository.delete(Todo, attributes);
+
+      //Not found
+      if (deleteTodo === false) {
         const errorToThrow = new Error();
         errorToThrow.status = 404;
         errorToThrow.message = "TODO not found";
         throw errorToThrow;
       }
+      return deleteTodo;
     });
 
-    if (deletedTodo === 1) {
-      return true;
+    //Internal error
+    if (deletedTodo !== 1) {
+      const errorToThrow = new Error();
+      errorToThrow.status = 500;
+      errorToThrow.message = "Internal Server error";
+      console.log("Something went wrong deleting a todo in todo-service.js");
+      throw errorToThrow;
     }
-    const errorToThrow = new Error();
-    errorToThrow.status = 500;
-    errorToThrow.message = "Internal Server error";
-    console.log("Something went wrong deleting a todo in todo-service.js");
-    throw errorToThrow;
   },
 };

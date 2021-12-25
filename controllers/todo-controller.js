@@ -27,7 +27,7 @@ module.exports = {
   }),
 
   delete: catchAsync(async (req, res, next) => {
-    const deletedTodo = await todoService.deleteTodo(req, res);
+    await todoService.deleteTodo(req, res);
     res.status(200).json({
       message: "Successfully deleted TODO",
     });
