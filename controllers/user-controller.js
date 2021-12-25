@@ -3,6 +3,8 @@ const userService = require("../services/user-service");
 const { encryptPassword, comparePassword } = require("../utils/bcrypt");
 const buildUserObject = require("../utils/buildUserObject");
 const { generateAccessToken } = require("../utils/jsonwebtoken");
+const code = require("../constants/http-status");
+const message = require("../constants/user-constants");
 
 module.exports = {
   create: catchAsync(async (req, res, next) => {
@@ -10,16 +12,16 @@ module.exports = {
     req.body.password = hashedPassword;
 
     const createdUser = await userService.createUser(req, res);
-    res.status(201).json({
-      message: "Successfully created new user",
+    res.status(code.CREATED).json({
+      message: message.CREATED_USER,
       body: createdUser,
     });
   }),
 
   update: catchAsync(async (req, res, next) => {
     const updatedUser = await userService.updateUser(req, res);
-    res.status(200).json({
-      message: "Successfully updated user",
+    res.status(code.OK).json({
+      message: message.UPDATED_USER(req.params.id),
       body: updatedUser,
     });
   }),
@@ -32,8 +34,8 @@ module.exports = {
 
     if (!validPassword) {
       const errorToThrow = new Error();
-      errorToThrow.status = 401;
-      errorToThrow.message = "Wrong credentials";
+      errorToThrow.status = code.UNAUTHORIZED;
+      errorToThrow.message = message.BAD_CREDENTIALS;
       throw errorToThrow;
     }
 
@@ -42,8 +44,8 @@ module.exports = {
       token: generateAccessToken(user),
     };
 
-    res.status(200).json({
-      message: "Successfully logged in",
+    res.status(code.OK).json({
+      message: message.LOGGED_IN,
       body: result,
     });
   }),

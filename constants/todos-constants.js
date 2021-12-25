@@ -1,7 +1,7 @@
 const TODO_NOT_CREATED = "Internal server error creating TODO.";
 const TODO_NOT_UPDATED = "Internal server error updating TODO.";
 const TODO_NOT_DELETED = "Internal server error deleting TODO.";
-const TODO_EXISTS = "A TODO with that title name already exists.";
+const TODO_EXISTS = "A TODO with that title already exists.";
 const TODO_NOT_FOUND = "Couldn't find any TODO(s).";
 const BAD_CREATE_TODO_REQUEST = `Your request body should include 'title', 'content', and 'userId' properties.`;
 const BAD_UPDATE_TODO_REQUEST = `Your request body should include at least one of these properties: 'title', 'content', 'userId'.`;
