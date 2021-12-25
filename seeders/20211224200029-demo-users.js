@@ -22,7 +22,7 @@ const createUsers = async () => {
 const createTodos = (arr) => {
   const newArray = arr.map((user, index) => {
     return {
-      userId: user.id,
+      UserId: user.id,
       title: "Todo " + (index + 1),
       content: "TODO content for TODO " + (index + 1),
       createdAt: new Date(),

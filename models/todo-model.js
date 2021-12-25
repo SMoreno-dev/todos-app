@@ -4,12 +4,12 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     static associate(models) {
-      this.belongsTo(models.User, { foreignKey: "userId", allowNull: false });
+      this.belongsTo(models.User, { foreignKey: "UserId", allowNull: false });
     }
   }
   Todo.init(
     {
-      userId: {
+      UserId: {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
