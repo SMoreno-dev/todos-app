@@ -4,7 +4,7 @@ const encryptPassword = require("../utils/encryptPassword");
 
 module.exports = {
   create: catchAsync(async (req, res, next) => {
-    const hashedPassword = await encryptPassword(req.body.password);
+    const hashedPassword = await encryptPassword(req.body.password.toString());
     req.body.password = hashedPassword;
 
     const createdUser = await userService.createUser(req, res);
