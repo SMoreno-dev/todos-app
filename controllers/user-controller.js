@@ -5,6 +5,7 @@ const buildUserObject = require("../utils/build-user-object");
 const { generateAccessToken } = require("../utils/jsonwebtoken");
 const code = require("../constants/http-status");
 const message = require("../constants/user-constants");
+const throwError = require("../utils/throw-error");
 
 module.exports = {
   create: catchAsync(async (req, res, next) => {
@@ -27,16 +28,15 @@ module.exports = {
   }),
 
   login: catchAsync(async (req, res, next) => {
-    let { password } = req.body;
-
     const user = await userService.findUserByEmail(req, res);
-    const validPassword = comparePassword(password.toString(), user.password);
+
+    const validPassword = await comparePassword(
+      req.body.password,
+      user.password
+    );
 
     if (!validPassword) {
-      const errorToThrow = new Error();
-      errorToThrow.status = code.UNAUTHORIZED;
-      errorToThrow.message = message.BAD_CREDENTIALS;
-      throw errorToThrow;
+      throwError(code.UNAUTHORIZED, message.BAD_CREDENTIALS);
     }
 
     const result = {

@@ -5,6 +5,7 @@ const { generateAccessToken } = require("../utils/jsonwebtoken");
 const buildUserObject = require("../utils/build-user-object");
 const code = require("../constants/http-status");
 const message = require("../constants/user-constants");
+const throwError = require("../utils/throw-error");
 
 module.exports = {
   createUser: async (req, res) => {
@@ -34,7 +35,6 @@ module.exports = {
         return userWithToken;
       }
 
-      const errorToThrow = new Error();
       return throwError(code.INTERNAL_SERVER_ERROR, message.USER_NOT_CREATED);
     });
   },
