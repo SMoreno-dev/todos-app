@@ -21,7 +21,7 @@ module.exports = {
   }),
 
   update: catchAsync(async (req, res, next) => {
-    await todoService.updateTodo(req, res);
+    const updatedTodo = await todoService.updateTodo(req, res);
     res.status(code.OK).json({
       message: message.UPDATED_TODO(req.params.id),
       body: updatedTodo,

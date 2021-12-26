@@ -28,7 +28,7 @@ module.exports = {
       transaction,
     });
 
-    return !updateRow ? false : updateRow;
+    return updateRow[0];
   },
 
   delete: async (model, attributes, transaction) => {
