@@ -3,7 +3,6 @@ require("dotenv").config();
 //Imports
 const server = require("../server.js");
 const code = require("../constants/http-status");
-const message = require("../constants/default-constants");
 const {
   CREATED_USER,
   BAD_CREATE_USER_REQUEST,
