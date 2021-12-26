@@ -31,7 +31,6 @@ module.exports = {
         const userWithToken = Object.assign(buildUserObject(createdUser), {
           token,
         });
-        console.log(userWithToken);
         return userWithToken;
       }
 

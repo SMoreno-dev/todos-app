@@ -42,7 +42,6 @@ module.exports = {
     );
     const userRows = users[0];
     const todosToCreate = createTodos(userRows);
-    console.log(todosToCreate);
 
     return await queryInterface.bulkInsert("Todos", todosToCreate, {});
   },
