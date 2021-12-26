@@ -1,13 +1,11 @@
+//Imports
 const server = require("../server.js");
-
-//Constants
 const code = require("../constants/http-status");
-const message = require("../constants/default-constants");
 const { GOT_TODO } = require("../constants/todo-constants");
-
-//Chai
 const chai = require("chai");
 const chaiHttp = require("chai-http");
+
+//Chai
 const assert = chai.assert;
 chai.use(chaiHttp);
 

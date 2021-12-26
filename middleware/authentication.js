@@ -1,6 +1,7 @@
 const { validateToken } = require("../utils/jsonwebtoken");
 const FORBIDDEN_CODE = require("../constants/http-status").FORBIDDEN;
 const FORBIDDEN_MESSAGE = require("../constants/default-constants").FORBIDDEN;
+const throwError = require("../utils/throw-error");
 
 module.exports = (req, res, next) => {
   // Sends the request to validate the token
