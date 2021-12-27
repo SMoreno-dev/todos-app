@@ -5,11 +5,11 @@
   "main": "server.js",
   "type": "commonjs",
   "scripts": {
+    "mocha": "mocha",
+    "DB": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "start": "cross-env NODE_ENV=production node server.js",
-    "dev": "cross-env NODE_ENV=development nodemon server.js",
-    "testDB": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
-    "test": "cross-env-shell NODE_ENV=test \"npm run testDB && mocha\"",
-    "mocha": "mocha"
+    "dev": "cross-env-shell NODE_ENV=development \"npm run DB && nodemon server.js\"",
+    "test": "cross-env-shell NODE_ENV=test \"npm run DB && mocha\""
   },
   "keywords": [],
   "author": "",
