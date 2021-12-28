@@ -15,8 +15,8 @@ Features include:
 
 |                                                   |                                                       |
 | :-----------------------------------------------: | :---------------------------------------------------: |
-| <img width="768" alt="Todo List" src="">Todo List | <img width="768" alt="Create Post" src="">Create Post |
-|  <img width="768" alt="Register" src="">Register  |      <img width="768" alt="Log In" src="">Log In      |
+| <img width="768" alt="Todo List" src="https://user-images.githubusercontent.com/67179213/147607842-4568aec1-b40d-49f5-af05-93054c2fd62a.png">Todo List | <img width="768" alt="Create Post" src="https://user-images.githubusercontent.com/67179213/147607856-3233beea-6a49-46bf-bc70-32bef19676ce.png">Create Post |
+|<img width="768" alt="Register" src="https://user-images.githubusercontent.com/67179213/147607880-2c893599-2067-4265-ad8a-37fd2e668c54.png">Register  |      <img width="768" alt="Log In" src="https://user-images.githubusercontent.com/67179213/147607898-a5e2a24b-903d-455f-901c-0682e86398fa.png">Log In      |
 
 ## Dependencies
 
@@ -69,7 +69,7 @@ Features include:
 
 ### Setting up the database
 
-Install [postgresql](https://www.postgresql.org/) locally. Then use the following command to log into the `psql` shell:
+Install [postgresql](https://www.postgresql.org/) locally. Then use the following command to check if the `psql` shell is working:
 
 ```
 psql -U postgres
