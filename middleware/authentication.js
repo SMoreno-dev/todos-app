@@ -1,6 +1,6 @@
 const { validateToken } = require("../utils/jsonwebtoken");
-const FORBIDDEN_CODE = require("../constants/http-status").FORBIDDEN;
-const FORBIDDEN_MESSAGE = require("../constants/default-constants").FORBIDDEN;
+const code = require("../constants/http-status");
+const message = require("../constants/default-constants");
 const throwError = require("../utils/throw-error");
 
 module.exports = (req, res, next) => {
@@ -11,7 +11,8 @@ module.exports = (req, res, next) => {
   //   - the token didn't exist in the request
   //   - the token wasn't valid
   //   - the token expired
-  if (payload === null) return throwError(FORBIDDEN_CODE, FORBIDDEN_MESSAGE);
+  if (payload === null)
+    return throwError(code.UNAUTHORIZED, message.UNAUTHORIZED);
 
   // Adds the payload of the token to the request. This will let access
   // it from another place without revalidating the token
