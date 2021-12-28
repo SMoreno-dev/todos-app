@@ -2,7 +2,7 @@
 
 This is the server-side/backend repo. You can find the client-side/frontend repo [here](https://github.com/SMoreno-dev/todos-app-client).
 
-This project integrates a React frontend with a Node.js backend through a REST API.
+This project integrates a React frontend with a Node.js backend through a REST API with a PostgreSQL database.
 
 Features include:
 
