@@ -106,8 +106,6 @@ app.listen(PORT, HOST, () => {
 
 ```
 
-## Scripts
-
 Now you can simply run the server by using:
 
 | Script  | Description                                                         |
