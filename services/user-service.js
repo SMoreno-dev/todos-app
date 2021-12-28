@@ -44,6 +44,9 @@ module.exports = {
     };
 
     const user = await repository.find(User, attributes);
+    if (!user) {
+      return throwError(code.UNAUTHORIZED, message.BAD_CREDENTIALS);
+    }
     return user.dataValues;
   },
 
