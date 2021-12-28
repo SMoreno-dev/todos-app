@@ -2,68 +2,71 @@
 
 This is the server-side/backend repo. You can find the client-side/frontend repo [here](https://github.com/SMoreno-dev/todos-app-client).
 
-This project integrates a React frontend with a Node.js backend through a REST API.  
-
+This project integrates a React frontend with a Node.js backend through a REST API.
 
 Features include:
-* Creation and authentication of users, necessary to gain access tokens.
-* Authorization of actions through json web tokens. 
-* A feed that lists all TODO entries.
-* Creation and Deletion of TODOs
+
+- Creation and authentication of users, necessary to gain access tokens.
+- Authorization of actions through json web tokens.
+- A feed that lists all TODO entries.
+- Creation and Deletion of TODOs
 
 ## Screenshots
 
-| | | 
-|:-------------------------:|:-------------------------:|
-|<img width="768" alt="Todo List" src="">Todo List |<img width="768" alt="Create Post" src="">Create Post|
-|<img width="768" alt="Register" src="">Register| <img width="768" alt="Log In" src="">Log In|
+|                                                   |                                                       |
+| :-----------------------------------------------: | :---------------------------------------------------: |
+| <img width="768" alt="Todo List" src="">Todo List | <img width="768" alt="Create Post" src="">Create Post |
+|  <img width="768" alt="Register" src="">Register  |      <img width="768" alt="Log In" src="">Log In      |
 
-##Dependencies
+## Dependencies
 
-## Front End Dependencies
+### Front End Dependencies
 
-| Library Name | Description |
-| ----------- | ----------- |
-| `bootstrap`     | Open-source, front-end, responsive css framework |
-|`react-router`| Declarative routing for React |
-|`react-router-dom`| DOM bindings for react-router |
+| Library Name       | Description                                      |
+| ------------------ | ------------------------------------------------ |
+| `react`            | Javascript library for creating user interfaces  |
+| `react-dom`        | React package for working with the DOM           |
+| `bootstrap`        | Open-source, front-end, responsive css framework |
+| `react-router`     | Declarative routing for React                    |
+| `react-router-dom` | DOM bindings for react-router                    |
 
 ### Back End Dependencies
 
-| Library Name | Description |
-| ----------- | ----------- |
-|`bcrypt`| A library to help in hashing passwords |
-|`express`| Web framework for Node.js |
-|`cors`| Provides a Connect/Express middleware that can be used to enable CORS |
-|`pg`| 	Non-blocking PostgreSQL client for Node.js |
+| Library Name   | Description                                                             |
+| -------------- | ----------------------------------------------------------------------- |
+| `bcrypt`       | A library to help in hashing passwords                                  |
+| `express`      | Web framework for Node.js                                               |
+| `cors`         | Provides a Connect/Express middleware that can be used to enable CORS   |
+| `pg`           | Non-blocking PostgreSQL client for Node.js                              |
+| `pg-hstore`    | A module for serializing and deserializing JSON data into hstore format |
+| `cross-env`    | Run scripts that set and use environment variables across platforms     |
+| `dotenv`       | Loads environment variables from .env file                              |
+| `jsonwebtoken` | An implementation of JSON web tokens                                    |
+| `sequelize`    | Promise-based ORM tool for Node.js                                      |
 
+### Backend Dev Dependencies
+
+| Library Name    | Description                                                       |
+| --------------- | ----------------------------------------------------------------- |
+| `chai`          | BDD/TDD assertion library for node.js and the browser             |
+| `chai-http`     | Provides an interface for live integration testing via superagent |
+| `mocha`         | JavaScript test framework for Node.js & The Browser               |
+| `nodemon`       | Simple monitor script for use during development of a node.js app |
+| `sequelize-cli` | A Command Line Interface (CLI) for Sequelize                      |
 
 ## API Endpoints
 
-| API | VERB | Parameters | Description |
-| ----------- | ----------- | ----------- | ----------- |
-| /auth/signup | POST | (user, email, password) | Sign Up |
-| /auth/signin | POST | (user, password) | Sign In |
-| /comment/list | POST | (userId, postId) | Comments for a single post |
-| /comment/new | POST | (userId, comment, postId) | Creates a comment for a post |
-| /comment | DELETE | (userId, commentId) | Deletes a comment |
-| /comment/replies/list | POST | (userId, commentId | Replies for a single comment |
-| /comment/replies/new | POST | (userId, reply, prevCommentId) | Creates a reply for a comment |
-| /frontpage/feed | POST | (userId, sortByVote, limit) | Previews for posts from different subreddits |
-| /post/new | POST | (id, subreddit, title, post) | Creates a post |
-| /post | POST | (userId, subredditName, postId) | A post |
-| /post/vote | POST | (userId, postId, vote) | Submits an "upvote" or "downvote" for a post |
-| /post/votes | POST | (userId, postId) | Votes for a single post |
-| /post | DELETE | (userId, postId) | Deletes a post |
-| /subreddit/subscribe | POST | (subreddit, userId, subscription) | Subscribes an user to a subreddit |
-| /subreddit/data | POST | (subredditName, userId) | Subreddit information |
-| /subreddit/list | GET | none | List of subreddits |
-| /subreddit/feed | POST | (userId, subredditName, limit, orderByVotes) | Previews for posts from a single subreddit |
-| /user/posts | POST | (userId, profileUser, limit, orderByVotes) | Previews for posts from a single user |
-| /user/subscriptions | POST | (userId, username) | List of subscriptions for a single user |
+| API             | VERB   | Parameters                          | Description          |
+| --------------- | ------ | ----------------------------------- | -------------------- |
+| /users/register | POST   | (email, password)                   | Register a new user  |
+| /users/login    | POST   | (email, password)                   | Log In               |
+| /todos          | GET    | none                                | List of all TODOs    |
+| /todos          | POST   | (title, content, userId, completed) | Creates a new TODO   |
+| /todos/:id      | PATCH  | (title, userId, content, completed) | Updates a TODO by id |
+| /todos/:id      | DELETE | none                                | Deletes a TODO by id |
 
 ## Guide
- 
+
 ### Setting up the database
 
 Install [postgresql](https://www.postgresql.org/) locally. Then use the following command to log into the `psql` shell:
@@ -72,38 +75,18 @@ Install [postgresql](https://www.postgresql.org/) locally. Then use the followin
 psql -U postgres
 ```
 
-Next, create a role and a database:
-
-```
-CREATE ROLE readit_app WITH LOGIN PASSWORD 'password';
-CREATE DATABASE readit;
-GRANT ALL PRIVILEGES ON DATABASE readit TO readit_app;
-\q
-```
-
-Now you can log into the `readit` database as `readit_app`:
-
-```
-psql -U readdit_app readit
-```
-
-Add the `uuid-ossp` extension. This will be necessary to create the `users` table.
-
-```
-CREATE EXTENSION "uuid-ossp";
-```
-
-Finally, run the query described in [database.sql](https://github.com/SMoreno-dev/readIt-server/blob/main/database.sql)   
+You won't need to create the database manually as long as you've got your environment variables set up properly.
 
 ### Setting up Node.js
 
 Start by cloning the server-side repo:
 
 ```
-git clone https://github.com/SMoreno-dev/readIt-server
+git clone https://github.com/SMoreno-dev/todos-app-server
 ```
 
 Then install:
+
 1. [node](https://nodejs.org/en/)
 2. [npm](https://www.npmjs.com/get-npm)
 
@@ -114,40 +97,31 @@ cd directory/server-side-project
 npm install
 ```
 
-You'll need to keep track of the [server port](https://github.com/SMoreno-dev/readIt-server/blob/909e8d866da407909b0995965ed001f85956c434/server.js#L10) in [`server.js`](https://github.com/SMoreno-dev/readIt-server/blob/main/server.js). In my case, I've already got an environment variable set up, but you may change it according to your needs.
+You'll need to keep track of the environment variables. These are detailed in .env.example for your convenience.
 
 ```
-app.listen(process.env.PORT);
-console.log('Server running on port ', process.env.PORT);
-```
-
-It is also very important you set up your database connection properly in [`pool.js`](https://github.com/SMoreno-dev/readIt-server/blob/909e8d866da407909b0995965ed001f85956c434/utils/db/pool.js). 
-Again, I'm using some env vars, but you may change it as you see fit.
+app.listen(PORT, HOST, () => {
+  console.log("Server running on port ", PORT);
+});
 
 ```
-const pool = new Pool({
-    user: process.env.USER,
-    host: process.env.HOST,
-    database: process.env.DATABASE,
-    password: process.env.PASSWORD,
-    port: 5432,
-    ssl: {
-        rejectUnauthorized: false
-    }
-})
-```
+
+## Scripts
 
 Now you can simply run the server by using:
-```
-node server.js
-```
 
-You should be able to access the server on http://localhost:[port]/
+| Script  | Description                                                         |
+| ------- | ------------------------------------------------------------------- |
+| `start` | Runs the app in production mode                                     |
+| `dev`   | Drops and creates a dev database, and runs the server using nodemon |
+| `test`  | Drops and creates a test database, and runs mocha tests             |
+
+You should be able to access the server on http://[host]:[port]/
 
 As for the client-side, you'll need to create a new directory, and clone the other repo:
 
 ```
-git clone https://github.com/SMoreno-dev/readIt-client
+git clone https://github.com/SMoreno-dev/todos-app-client
 ```
 
 And again, `cd` to the project directory and run `npm install`:
@@ -163,17 +137,4 @@ Finally, you can run the react app with the following command:
 npm start
 ```
 
-By default, this should run the react app in http://localhost:3000/. Make sure it doesn't match your back-end port. 
-If you find it does, you may fix it by modifying the ['start' script](https://github.com/SMoreno-dev/readIt-client/blob/309da5711a8548c4a2fab76cbd7d330bcacb8d67/package.json#L23) in [`package.json`](https://github.com/SMoreno-dev/readIt-client/blob/main/package.json):
-
-Linux/Mac
-
-```
-"start": "PORT=3006 react-scripts start"
-```
-
-Windows
-
-```
-"start": "PORT=3006 && react-scripts start"
-```
+By default, this should run the react app in http://localhost:3000/. Make sure it doesn't match your back-end port.
