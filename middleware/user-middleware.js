@@ -1,11 +1,10 @@
 const code = require("../constants/http-status");
 const message = require("../constants/user-constants");
 
-const isUndefined = (prop) => typeof prop === undefined;
+const isUndefined = (prop) => typeof prop === "undefined";
 
 const validateCreateUser = (req, res, next) => {
   let { email, password } = req.body;
-  const 
   if ([email, password].some(isUndefined)) {
     return res
       .status(code.BAD_REQUEST)

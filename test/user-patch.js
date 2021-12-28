@@ -71,8 +71,8 @@ describe(`${ENDPOINT.METHOD} ${ENDPOINT.PATH}`, () => {
         .send(goodRequest)
         .end((err, res) => {
           assert.isNull(err);
-          assert.equal(res.status, code.FORBIDDEN);
-          assert.equal(res.body.message, message.FORBIDDEN);
+          assert.equal(res.status, code.UNAUTHORIZED);
+          assert.equal(res.body.message, message.UNAUTHORIZED);
 
           done();
         });
@@ -86,8 +86,8 @@ describe(`${ENDPOINT.METHOD} ${ENDPOINT.PATH}`, () => {
         .send(goodRequest)
         .end((err, res) => {
           assert.isNull(err);
-          assert.equal(res.status, code.FORBIDDEN);
-          assert.equal(res.body.message, message.FORBIDDEN);
+          assert.equal(res.status, code.UNAUTHORIZED);
+          assert.equal(res.body.message, message.UNAUTHORIZED);
 
           done();
         });
@@ -101,8 +101,8 @@ describe(`${ENDPOINT.METHOD} ${ENDPOINT.PATH}`, () => {
         .send(goodRequest)
         .end((err, res) => {
           assert.isNull(err);
-          assert.equal(res.status, code.FORBIDDEN);
-          assert.equal(res.body.message, message.FORBIDDEN);
+          assert.equal(res.status, code.UNAUTHORIZED);
+          assert.equal(res.body.message, message.UNAUTHORIZED);
 
           done();
         });
@@ -115,8 +115,8 @@ describe(`${ENDPOINT.METHOD} ${ENDPOINT.PATH}`, () => {
         .set("Authorization", "Bearer test")
         .end((err, res) => {
           assert.isNull(err);
-          assert.equal(res.status, code.FORBIDDEN);
-          assert.equal(res.body.message, message.FORBIDDEN);
+          assert.equal(res.status, code.UNAUTHORIZED);
+          assert.equal(res.body.message, message.UNAUTHORIZED);
 
           done();
         });

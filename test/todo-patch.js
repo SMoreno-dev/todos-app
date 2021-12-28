@@ -20,6 +20,7 @@ chai.use(chaiHttp);
 //TOKEN
 const TOKEN = generateAccessToken({ id: 1 });
 const EXPIRED_TOKEN = generateExpiredToken();
+console.log(TOKEN);
 
 //Endpoint method and path
 const ENDPOINT = {
@@ -72,8 +73,8 @@ describe(`${ENDPOINT.METHOD} ${ENDPOINT.PATH}`, () => {
         .send(goodRequest)
         .end((err, res) => {
           assert.isNull(err);
-          assert.equal(res.status, code.FORBIDDEN);
-          assert.equal(res.body.message, message.FORBIDDEN);
+          assert.equal(res.status, code.UNAUTHORIZED);
+          assert.equal(res.body.message, message.UNAUTHORIZED);
 
           done();
         });
@@ -87,8 +88,8 @@ describe(`${ENDPOINT.METHOD} ${ENDPOINT.PATH}`, () => {
         .send(goodRequest)
         .end((err, res) => {
           assert.isNull(err);
-          assert.equal(res.status, code.FORBIDDEN);
-          assert.equal(res.body.message, message.FORBIDDEN);
+          assert.equal(res.status, code.UNAUTHORIZED);
+          assert.equal(res.body.message, message.UNAUTHORIZED);
 
           done();
         });
@@ -102,8 +103,8 @@ describe(`${ENDPOINT.METHOD} ${ENDPOINT.PATH}`, () => {
         .send(goodRequest)
         .end((err, res) => {
           assert.isNull(err);
-          assert.equal(res.status, code.FORBIDDEN);
-          assert.equal(res.body.message, message.FORBIDDEN);
+          assert.equal(res.status, code.UNAUTHORIZED);
+          assert.equal(res.body.message, message.UNAUTHORIZED);
 
           done();
         });
@@ -116,8 +117,8 @@ describe(`${ENDPOINT.METHOD} ${ENDPOINT.PATH}`, () => {
         .set("Authorization", "Bearer test")
         .end((err, res) => {
           assert.isNull(err);
-          assert.equal(res.status, code.FORBIDDEN);
-          assert.equal(res.body.message, message.FORBIDDEN);
+          assert.equal(res.status, code.UNAUTHORIZED);
+          assert.equal(res.body.message, message.UNAUTHORIZED);
 
           done();
         });
