@@ -14,8 +14,7 @@ module.exports = (req, res, next) => {
   if (payload === null)
     return throwError(code.UNAUTHORIZED, message.UNAUTHORIZED);
 
-  // Adds the payload of the token to the request. This will let access
-  // it from another place without revalidating the token
+  // Adds the token payload to the request
   req.tokenPayload = payload;
 
   next();
