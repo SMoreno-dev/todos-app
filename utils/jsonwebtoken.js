@@ -30,8 +30,8 @@ module.exports = {
       const token = jwt.verify(bearer, process.env.ACCESS_SECRET);
       return token;
     } catch (error) {
-      //If token is expired, an error will be thrown
-      //We don't wan't an exception in this case, but rather for the middleware to handle this use case
+      //If the token is expired, an error will be thrown
+      //We want the middleware to handle this
       //So we'll just return a null value
       return null;
     }
@@ -39,7 +39,7 @@ module.exports = {
 
   // Only meant to be used for testing
   generateExpiredToken: () => {
-    //Token will expire in 1s
+    //Token will expire in 1ms
     const token = jwt.sign({ id: 1 }, process.env.ACCESS_SECRET, {
       expiresIn: "1ms",
     });
